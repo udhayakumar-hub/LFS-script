@@ -1,5 +1,16 @@
 #!/bin/bash
 # Simple script to list version numbers of critical development tools
+echo "install-Basic_utility on LFS on ubuntu"
+echo "==^^please sceript RUN AS ROOT^^^====="
+sudo ln -sf bash /bin/sh 
+sudo apt-get install bison -y
+sudo apt-get install yacc -y 
+sudo apt-get install gawk -y
+sudo apt-get install m4 -y
+sudo apt-get install make -y
+sudo apt-get install patch -y
+sudo apt-get install texinfo -y
+
 export LC_ALL=C
 bash --version | head -n1 | cut -d" " -f2-4
 MYSH=$(readlink -f /bin/sh)
@@ -8,12 +19,10 @@ echo $MYSH | grep -q bash || echo "ERROR: /bin/sh does not point to bash"
 unset MYSH
 
 echo -n "Binutils: "; ld --version | head -n1 | cut -d" " -f3-
-sudo apt-get install bison
 bison --version | head -n1
 
 if [ -h /usr/bin/yacc ]; then
   echo "/usr/bin/yacc -> `readlink -f /usr/bin/yacc`";
-  sudo apt-get install yacc -y 
 elif [ -x /usr/bin/yacc ]; then
   echo yacc is `/usr/bin/yacc --version | head -n1`
 else
@@ -24,7 +33,6 @@ bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f1,6-
 echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
 diff --version | head -n1
 find --version | head -n1
-sudo apt-get install gawk
 gawk --version | head -n1
 
 if [ -h /usr/bin/awk ]; then
@@ -41,17 +49,13 @@ ldd --version | head -n1 | cut -d" " -f2-  # glibc version
 grep --version | head -n1
 gzip --version | head -n1
 cat /proc/version
-sudo apt-get install m4
 m4 --version | head -n1
-sudo apt-get install make
 make --version | head -n1
-sudo apt-get install patch
 patch --version | head -n1
 echo Perl `perl -V:version`
 python3 --version
 sed --version | head -n1
 tar --version | head -n1
-sudo apt-get install texinfo
 makeinfo --version | head -n1  # texinfo version
 xz --version | head -n1
 
